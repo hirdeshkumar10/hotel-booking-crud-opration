@@ -36,7 +36,7 @@ public class HotelBookingServiceImpl implements HotelBookingService{
 
     @Override
     public Page<HotelBooking> findAll(Pageable pageable) {
-        log.debug("Request to findAll HotelBooking: {}",pageable);
+        log.debug("Request to findAll HotelBooking: {}",pageable.toString());
         return hotelBookingRepository.findAll(pageable);
     }
 
