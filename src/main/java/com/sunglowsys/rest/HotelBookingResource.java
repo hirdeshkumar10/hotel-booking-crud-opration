@@ -52,7 +52,7 @@ public class HotelBookingResource {
 
     @GetMapping("/hotel-bookings")
     public ResponseEntity<Page<HotelBooking>> findAllHotelBooking(Pageable pageable){
-        log.debug("Rest request to findAll HotelBooking: {}",pageable);
+        log.debug("Rest request to findAll HotelBooking: {}",pageable.toString());
         Page<HotelBooking> result = hotelBookingService.findAll(pageable);
         return ResponseEntity
                 .ok()
