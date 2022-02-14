@@ -4,6 +4,8 @@ import com.sunglowsys.domain.HotelBooking;
 import com.sunglowsys.service.HotelBookingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,7 +41,7 @@ public class HotelBookingResource {
     @PutMapping("/hotel-bookings")
     public ResponseEntity<HotelBooking> updateHotelBooking(@RequestBody HotelBooking hotelBooking){
         log.debug("Rest request to update HotelBooking: {}",hotelBooking);
-        if (hotelBooking.getId() ==null){
+        if (hotelBooking.getId() == null){
             throw new RuntimeException("Id should not be null in update api calls");
         }
         HotelBooking result = hotelBookingService.update(hotelBooking);
@@ -49,9 +51,9 @@ public class HotelBookingResource {
     }
 
     @GetMapping("/hotel-bookings")
-    public ResponseEntity<List<HotelBooking>> findAllHotelBooking(){
-        log.debug("Rest request to findAll HotelBooking: ");
-        List<HotelBooking> result = hotelBookingService.findAll();
+    public ResponseEntity<Page<HotelBooking>> findAllHotelBooking(Pageable pageable){
+        log.debug("Rest request to findAll HotelBooking: {}",pageable);
+        Page<HotelBooking> result = hotelBookingService.findAll(pageable);
         return ResponseEntity
                 .ok()
                 .body(result);
@@ -72,7 +74,7 @@ public class HotelBookingResource {
         log.debug("Rest request to delete HotelBooking: {}",id);
         hotelBookingService.delete(id);
         return ResponseEntity
-                .noContent()
+                .ok()
                 .build();
     }
 }
